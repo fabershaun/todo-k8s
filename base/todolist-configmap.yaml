@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: todo-config
-  namespace: todo-k8s
-data:
-  MYSQL_DB: "todo"
-  MYSQL_HOST: "mariadb"
-  MYSQL_USER: "root"

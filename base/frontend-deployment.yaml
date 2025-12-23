@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
+  namespace: todo-k8s
 spec:
   replicas: 1
   selector:
@@ -9,18 +10,17 @@ spec:
       app: frontend
   template:
     metadata:
-      namespace: todo-k8s
       labels:
         app: frontend
     spec:
       initContainers:
       - name: wait-for-db
-        image: busybox
+        image: busybox:latest
         command: ['sh', '-c', 'until nc -z mariadb 3306; do echo waiting for db; sleep 2; done']
 
       containers:
         - name: todolist
-          image: ghcr.io/bennyro-mta/todolist:1.6
+          image: ghcr.io/bennyro-mta/todolist:1.8
           ports:
             - containerPort: 5000
           env:

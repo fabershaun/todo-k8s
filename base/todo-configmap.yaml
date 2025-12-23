@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-config
+data:
+  MYSQL_DB: "todo"
+  MYSQL_HOST: "mariadb"
+  MYSQL_USER: "root"

@@ -23,23 +23,23 @@ spec:
         - name: MYSQL_HOST
           valueFrom:
             configMapKeyRef:
-              name: todolist-config
+              name: todo-config
               key: MYSQL_HOST
 
         - name: MYSQL_USER
           valueFrom:
             configMapKeyRef:
-              name: todolist-config
+              name: todo-config
               key: MYSQL_USER
 
         - name: MYSQL_DB
           valueFrom:
             configMapKeyRef:
-              name: todolist-config
+              name: todo-config
               key: MYSQL_DB
 
         - name: MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: todolist-secret
+              name: todo-secret
               key: MYSQL_ROOT_PASSWORD
