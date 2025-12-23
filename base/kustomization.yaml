@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: todo-k8s
+
+resources:
+  - frontend-deployment.yaml
+  - frontend-service.yaml
+  - todo-configmap.yaml
+  - todo-secret.yaml
+  - mariadb-statefulset.yaml
+  - mariadb-headless-service.yaml
