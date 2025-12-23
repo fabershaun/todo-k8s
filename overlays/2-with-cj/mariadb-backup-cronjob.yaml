@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mariadb-backup
+spec:
+  schedule: "0 2 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure        
+          containers:
+          - name: mariadb-backup
+            image: mariadb:latest
+            env:
+              - name: MYSQL_ROOT_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: todo-secret
+                    key: MYSQL_ROOT_PASSWORD
+
+            command:
+              - /bin/sh
+              - -c
+              - |
+                echo "Running backup..."
+                mysqldump -h mariadb -u root -p$MYSQL_ROOT_PASSWORD todo > /backup/backup-$(date +%F).sql
+                echo "Backup complete!"
+
+            volumeMounts:
+              - name: mariadb-backup-storage
+                mountPath: /backup
+
+          volumes:
+            - name: mariadb-backup-storage
+              persistentVolumeClaim:
+                claimName: mariadb-backup-pvc
