@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: mariadb
 spec:
-  serviceName: mariadb
+  serviceName: mariadb-headless
   replicas: 1
 
   selector:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: mariadb
-          image: mariadb:10.5
+          image: mariadb:latest
           ports:
             - containerPort: 3306
               name: mysql

@@ -8,9 +8,10 @@ spec:
     spec:
       template:
         spec:
+          restartPolicy: OnFailure        
           containers:
           - name: mariadb-backup
-            image: mariadb:10.5
+            image: mariadb:latest
             env:
               - name: MYSQL_ROOT_PASSWORD
                 valueFrom:
@@ -29,8 +30,6 @@ spec:
             volumeMounts:
               - name: mariadb-backup-storage
                 mountPath: /backup
-
-          restartPolicy: OnFailure
 
           volumes:
             - name: mariadb-backup-storage
