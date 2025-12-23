@@ -9,6 +9,7 @@ spec:
       app: frontend
   template:
     metadata:
+      namespace: todo-k8s
       labels:
         app: frontend
     spec:
