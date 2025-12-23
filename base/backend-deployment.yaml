@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: nginx:latest  #placeholder
+        ports:
+        - containerPort: 8080
+
+        env:
+        - name: MYSQL_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: todo-config
+              key: MYSQL_HOST
+
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              name: todo-config
+              key: MYSQL_USER
+
+        - name: MYSQL_DB
+          valueFrom:
+            configMapKeyRef:
+              name: todo-config
+              key: MYSQL_DB
+
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: todo-secret
+              key: MYSQL_ROOT_PASSWORD
