@@ -1,12 +1,9 @@
 apiVersion: v1
-data:
-  MYSQL_DB: todo
-  MYSQL_HOST: backend
-  MYSQL_USER: root
 kind: ConfigMap
 metadata:
-  creationTimestamp: "2025-12-23T08:21:41Z"
-  name: todolist-config
+  name: todo-config
   namespace: todo-k8s
-  resourceVersion: "4282"
-  uid: f8ca34a3-a4df-4490-9995-957d6febf293
+data:
+  MYSQL_DB: "todo"
+  MYSQL_HOST: "mariadb"
+  MYSQL_USER: "root"
