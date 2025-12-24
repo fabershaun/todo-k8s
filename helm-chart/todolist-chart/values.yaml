@@ -1,0 +1,22 @@
+frontend:
+  name: frontend
+  image:
+    repository: ghcr.io/bennyro-mta/todolist
+    tag: "1.9"
+  service:
+    type: LoadBalancer
+    port: 5000
+
+backend:
+  name: mariadb
+  image:
+    repository: mariadb
+    tag: "11"
+  service:
+    port: 3306
+
+mysql:
+  db: todo
+  user: root
+  existingSecret: todo-secret
+  passwordKey: MYSQL_ROOT_PASSWORD
