@@ -1,3 +1,8 @@
+
+# Secrets
+todo-k8s/base/todo-secret.yaml
+helm-chart/todolist-chart/values-secret.yaml
+
 # =========================
 # OS / Editors
 # =========================
