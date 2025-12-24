@@ -17,6 +17,3 @@ backend:
 
 mysql:
   db: todo
-  user: root
-  existingSecret: todo-secret
-  passwordKey: MYSQL_ROOT_PASSWORD

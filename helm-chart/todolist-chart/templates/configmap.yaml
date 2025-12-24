@@ -4,6 +4,5 @@ metadata:
   name: {{ include "todolist-chart.fullname" . }}-config
 data:
   MYSQL_DB: "{{ .Values.mysql.db }}"
-  MYSQL_USER: "{{ .Values.mysql.user }}"
   MYSQL_HOST: "{{ include "todolist-chart.backendHeadlessName" . }}"
 

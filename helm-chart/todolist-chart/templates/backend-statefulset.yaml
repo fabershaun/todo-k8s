@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "todolist-chart.backendName" . }}
+spec:
+  serviceName: {{ include "todolist-chart.backendHeadlessName" . }}
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "todolist-chart.backendName" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "todolist-chart.backendName" . }}
+    spec:
+      containers:
+        - name: mariadb
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.backend.service.port }}
+          env:
+            - name: MYSQL_DATABASE
+              value: {{ .Values.mysql.db }}
+
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.mysql.name }}
+                  key: MYSQL_ROOT_PASSWORD
