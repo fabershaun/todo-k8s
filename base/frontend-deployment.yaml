@@ -16,11 +16,11 @@ spec:
       initContainers:
       - name: wait-for-db
         image: busybox:latest
-        command: ['sh', '-c', 'until nc -z mariadb 3306; do echo waiting for db; sleep 2; done']
+        command: ['sh', '-c', 'until nc -z mariadb-headless 3306; do echo waiting for db; sleep 2; done']
 
       containers:
         - name: todolist
-          image: ghcr.io/bennyro-mta/todolist:1.8
+          image: ghcr.io/bennyro-mta/todolist:1.9
           ports:
             - containerPort: 5000
           env:

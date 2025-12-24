@@ -9,3 +9,7 @@ patches:
     target:
       kind: Deployment
       name: frontend
+  - path: mariadb-probe-patch.yaml
+    target:
+      kind: StatefulSet
+      name: mariadb
