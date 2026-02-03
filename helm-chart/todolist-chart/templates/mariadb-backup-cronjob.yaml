@@ -22,7 +22,6 @@ spec:
                     secretKeyRef:
                       name: {{ .Values.secrets.mysql.name }}
                       key: MYSQL_ROOT_PASSWORD
-
               command:
                 - /bin/sh
                 - -c
@@ -32,14 +31,12 @@ spec:
                     -h {{ .Values.backend.name }} \
                     -u root \
                     -p$MYSQL_ROOT_PASSWORD \
-                    {{ .Values.backup.cronjob.database }} \
+                    {{ .Values.mysql.db }} \
                     > /backup/backup-$(date +%F).sql
                   echo "Backup complete!"
-
               volumeMounts:
                 - name: mariadb-backup-storage
                   mountPath: /backup
-
           volumes:
             - name: mariadb-backup-storage
               persistentVolumeClaim:
