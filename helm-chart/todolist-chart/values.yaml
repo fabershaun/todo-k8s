@@ -24,3 +24,9 @@ backup:
     size: 1Gi
     accessMode: ReadWriteOnce
     storageClass: standard
+
+  cronjob:
+    enabled: true
+    schedule: "0 2 * * *"
+    image: mariadb:11
+    database: todo
