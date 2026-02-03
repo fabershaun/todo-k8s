@@ -17,3 +17,10 @@ backend:
 
 mysql:
   db: todo
+backup:
+  pvc:
+    enabled: true
+    name: mariadb-backup-pvc
+    size: 1Gi
+    accessMode: ReadWriteOnce
+    storageClass: standard
