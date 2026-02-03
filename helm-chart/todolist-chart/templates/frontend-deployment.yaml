@@ -29,7 +29,6 @@ spec:
             timeoutSeconds: {{ .Values.frontend.probes.liveness.timeoutSeconds }}
             failureThreshold: {{ .Values.frontend.probes.liveness.failureThreshold }}
 {{ end }}
-
 {{ if .Values.frontend.probes.readiness.enabled }}
           readinessProbe:
             httpGet:
@@ -40,7 +39,6 @@ spec:
             timeoutSeconds: {{ .Values.frontend.probes.readiness.timeoutSeconds }}
             failureThreshold: {{ .Values.frontend.probes.readiness.failureThreshold }}
 {{ end }}
-
           env:
             - name: MYSQL_HOST
               valueFrom:

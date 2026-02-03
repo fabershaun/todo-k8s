@@ -36,7 +36,15 @@ backend:
     tag: "11"
   service:
     port: 3306
-
+  probes:
+    readiness:
+      enabled: true
+      port: 3306
+      initialDelaySeconds: 20
+      periodSeconds: 10
+      timeoutSeconds: 2
+      failureThreshold: 3
+      
 mysql:
   db: todo
 backup:
