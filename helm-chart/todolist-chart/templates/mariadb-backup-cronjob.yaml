@@ -1,0 +1,47 @@
+{{- if .Values.backup.cronjob.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mariadb-backup
+  labels:
+    app.kubernetes.io/name: {{ .Chart.Name }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  schedule: "{{ .Values.backup.cronjob.schedule }}"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: mariadb-backup
+              image: {{ .Values.backup.cronjob.image }}
+              env:
+                - name: MYSQL_ROOT_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.secrets.mysql.name }}
+                      key: MYSQL_ROOT_PASSWORD
+
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  echo "Running backup..."
+                  mysqldump \
+                    -h {{ .Values.backend.name }} \
+                    -u root \
+                    -p$MYSQL_ROOT_PASSWORD \
+                    {{ .Values.backup.cronjob.database }} \
+                    > /backup/backup-$(date +%F).sql
+                  echo "Backup complete!"
+
+              volumeMounts:
+                - name: mariadb-backup-storage
+                  mountPath: /backup
+
+          volumes:
+            - name: mariadb-backup-storage
+              persistentVolumeClaim:
+                claimName: {{ .Values.backup.pvc.name }}
+{{- end }}
