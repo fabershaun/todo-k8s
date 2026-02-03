@@ -13,6 +13,21 @@ frontend:
     limits:
       cpu: 250m
       memory: 512Mi
+  probes:
+    liveness:
+      enabled: true
+      path: /livez
+      initialDelaySeconds: 15
+      periodSeconds: 20
+      timeoutSeconds: 2
+      failureThreshold: 3
+    readiness:
+      enabled: true
+      path: /readyz
+      initialDelaySeconds: 5
+      periodSeconds: 5
+      timeoutSeconds: 2
+      failureThreshold: 3
       
 backend:
   name: mariadb
