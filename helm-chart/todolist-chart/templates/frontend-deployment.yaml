@@ -20,7 +20,8 @@ spec:
 
           volumeMounts:
             - name: title-image-volume
-              mountPath: /opt/images
+              mountPath: /usr/share/nginx/html/title-image.png
+              subPath: title-image.png
               readOnly: true
 
           resources:
@@ -60,5 +61,5 @@ spec:
           configMap:
             name: {{ include "todolist-chart.fullname" . }}-config
             items:
-              - key: title-image.b64
-                path: title-image.b64
+              - key: title-image.png
+                path: title-image.png

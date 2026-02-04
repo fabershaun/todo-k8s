@@ -6,4 +6,5 @@ data:
   USER: {{ .Values.user | quote }}
   MYSQL_DB: "{{ .Values.mysql.db }}"
   MYSQL_HOST: "{{ include "todolist-chart.backendName" . }}-0.{{ include "todolist-chart.backendHeadlessName" . }}"
-  title-image.b64: {{ .Files.Get "files/title-image.png" | b64enc | quote }}
+binaryData:
+  title-image.png: {{ .Files.Get "files/title-image.png" | b64enc }}
