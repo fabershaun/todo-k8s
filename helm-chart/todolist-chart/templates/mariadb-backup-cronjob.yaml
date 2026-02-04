@@ -28,7 +28,7 @@ spec:
                 - |
                   echo "Running backup..."
                   mysqldump \
-                    -h {{ .Values.backend.name }} \
+                    -h {{ include "todolist-chart.backendName" . }} \
                     -u root \
                     -p$MYSQL_ROOT_PASSWORD \
                     {{ .Values.mysql.db }} \

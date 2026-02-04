@@ -36,3 +36,17 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.secrets.mysql.name }}
                   key: MYSQL_ROOT_PASSWORD
+          
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql
+
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 1Gi
+            
