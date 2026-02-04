@@ -8,7 +8,7 @@ To install the application directly from the GitHub Container Registry, run:
 
 ```bash
 helm install my-release oci://ghcr.io/fabershaun/todolist-chart \
-  --version 0.1.1 \
+  --version 0.1.2 \
   --set secrets.mysql.name=mysql-secret \
   --set secrets.mysql.rootPassword=123456 \
   --create-namespace \
