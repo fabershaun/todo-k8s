@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "todolist-chart.fullname" . }}-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "todolist-chart.fullname" . }}-api
+  template:
+    metadata:
+      labels:
+        app: {{ include "todolist-chart.fullname" . }}-api
+    spec:
+      initContainers:
+        - name: init-db
+          image: mariadb:11
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.mysql.name }}
+                  key: MYSQL_ROOT_PASSWORD
+          command:
+            - sh
+            - -c
+            - |
+              mariadb -h {{ include "todolist-chart.backendHeadlessName" . }} -u root -p$MYSQL_ROOT_PASSWORD -e "
+              CREATE DATABASE IF NOT EXISTS todo;
+              USE todo;
+              CREATE TABLE IF NOT EXISTS tasks (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                task VARCHAR(255) NOT NULL,
+                status VARCHAR(50) DEFAULT 'Todo'
+              );"
+
+      containers:
+        - name: todo-api
+          image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.api.service.port }}
+          env:
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "todolist-chart.fullname" . }}-config
+                  key: MYSQL_HOST
+
+            - name: MYSQL_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "todolist-chart.fullname" . }}-config
+                  key: MYSQL_DB
+
+            - name: MYSQL_USER
+              value: root
+
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secrets.mysql.name }}
+                  key: MYSQL_ROOT_PASSWORD
+
+            - name: MYSQL_TABLE
+              value: tasks
+
+            
