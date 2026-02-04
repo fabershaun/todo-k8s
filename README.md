@@ -7,9 +7,9 @@ Full-stack application (Frontend, API, MariaDB) deployed on Kubernetes using Hel
 To install the application directly from the GitHub Container Registry, run:
 
 ```bash
-helm install todolist-release oci://ghcr.io/fabershaun/todolist-chart \
+helm install my-release oci://ghcr.io/fabershaun/todolist-chart \
   --version 0.1.0 \
   --set secrets.mysql.name=mysql-secret \
-  --set mysql.rootPassword=123456 \
+  --set secrets.mysql.rootPassword=123456 \
   --create-namespace \
-  -n todolist-namespace
+  -n todolist-final
