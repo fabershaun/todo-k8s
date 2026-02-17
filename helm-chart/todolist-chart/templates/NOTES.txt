@@ -3,13 +3,17 @@ Developed by: SHAUN FABER
 Thank you for installing {{ .Chart.Name }}.
 ============================================================
 
-To access and run the application, follow this single step:
+To access and run the application, follow these steps:
 
 1. START THE APPLICATION TUNNEL:
    Run the following command in your terminal:
    kubectl port-forward -n ingress-nginx service/ingress-nginx-controller 3000:80
 
-2. ACCESS THE APPLICATION:
+2. WAIT FOR PODS TO BE READY:
+   Please wait approximately 40 seconds. 
+   This allows the API to pass its readiness probes.
+
+3. ACCESS THE APPLICATION:
    Open your browser and go to:
    http://localhost:3000
 

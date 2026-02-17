@@ -11,18 +11,18 @@ spec:
   rules:
     - http:
         paths:
-          - path: /api/?(.*)
+          - path: /api/(.*)
             pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ include "todolist-chart.fullname" . }}-api
                 port:
-                  number: {{ .Values.api.service.port }}
-          - path: /?(.*)
+                  number: 8080
+          - path: /(.*)
             pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ include "todolist-chart.frontendName" . }}
                 port:
-                  number: {{ .Values.frontend.service.port }}
+                  number: 80
 {{- end }}
