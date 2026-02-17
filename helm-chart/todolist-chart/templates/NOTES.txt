@@ -3,18 +3,14 @@ Developed by: SHAUN FABER
 Thank you for installing {{ .Chart.Name }}.
 ============================================================
 
-To access and run the application on Linux, please follow these steps:
+To access and run the application, follow this single step:
 
-1. START THE FRONTEND TUNNEL:
+1. START THE APPLICATION TUNNEL:
    Run the following command in your terminal:
-   kubectl port-forward svc/{{ include "todolist-chart.fullname" . }}-frontend 3000:80 -n {{ .Release.Namespace }}
+   kubectl port-forward -n ingress-nginx service/ingress-nginx-controller 3000:80
 
-2. START THE API TUNNEL (Required for Database connection):
-   Open a SECOND terminal window and run:
-   kubectl port-forward svc/{{ include "todolist-chart.fullname" . }}-api 8080:8080 -n {{ .Release.Namespace }}
-
-3. ACCESS THE APPLICATION:
-   Now that both tunnels are active, open your browser and go to:
+2. ACCESS THE APPLICATION:
+   Open your browser and go to:
    http://localhost:3000
 
 Happy Tasking, {{ .Values.user }}!

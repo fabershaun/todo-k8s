@@ -53,7 +53,7 @@ spec:
                   key: USER
 
             - name: API_BASE_URL
-              value: {{ .Values.apiBaseUrl | quote }}
+              value: "/api/todos"
 
       volumes:
         - name: title-image-volume
